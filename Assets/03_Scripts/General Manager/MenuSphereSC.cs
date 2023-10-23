@@ -8,8 +8,12 @@ public class MenuSphereSC : MonoBehaviour
     [HideInInspector] int sphereOder;
     [HideInInspector] string sphereName;
 
+    [SerializeField] GameObject spherePrefab;
+    [SerializeField] Vector3 planetRot = new Vector3(0, 0, 1);
+
     private void OnMouseDown()
     {
+        print("in mouse down");
         if (mm.isPanelActive == false)
         {
             GetSphereOder();
@@ -43,4 +47,8 @@ public class MenuSphereSC : MonoBehaviour
         }
     }
     public void OnClosePanelEvent() => mm.isPanelActive = false;
+    public void SelfRot()
+    {
+        spherePrefab.transform.Rotate(planetRot);
+    }
 }
