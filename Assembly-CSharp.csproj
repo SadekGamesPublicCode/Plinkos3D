@@ -59,12 +59,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\03_Scripts\General Manager\LoadingSC.cs" />
-    <Compile Include="Assets\CreditPanelSC.cs" />
     <Compile Include="Assets\03_Scripts\Objects\StakeSC.cs" />
-    <Compile Include="Assets\OptionsSC.cs" />
     <Compile Include="Assets\03_Scripts\General Manager\MenuSphereSC.cs" />
+    <Compile Include="Assets\03_Scripts\General Manager\StudioTipsSC.cs" />
     <Compile Include="Assets\03_Scripts\General Manager\GameplaySC.cs" />
     <Compile Include="Assets\03_Scripts\Objects\SunSC.cs" />
+    <Compile Include="Assets\03_Scripts\OptionsSC.cs" />
+    <Compile Include="Assets\03_Scripts\CreditPanelSC.cs" />
     <Compile Include="Assets\03_Scripts\Objects\PlanetSC.cs" />
     <Compile Include="Assets\03_Scripts\General Manager\MainMenuSC.cs" />
     <Compile Include="Assets\03_Scripts\PlaySphereSC.cs" />

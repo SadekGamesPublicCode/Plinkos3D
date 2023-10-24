@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuSC : MonoBehaviour
 {
@@ -11,10 +12,22 @@ public class MainMenuSC : MonoBehaviour
     [SerializeField] GameObject marketPnl;
     [SerializeField] GameObject optionPnl;
     [SerializeField] GameObject groupSphere;
+    [SerializeField] StudioTipsSC stutips;
+
+    [SerializeField] Text tipsText;
 
     [SerializeField] Vector3 rotBody = new Vector3(0,0,0.25f);
 
     public bool isPanelActive;
+    private void Start()
+    {
+        StartCoroutine(WaitToShowTips());
+    }
+    private void Update()
+    {
+        SelfRotMenu();
+    }
+
     public void OnShowPanel(int pnlOder)
     {
         switch (pnlOder)
@@ -44,13 +57,18 @@ public class MainMenuSC : MonoBehaviour
                 break;
         }
     }
-    private void Update()
-    {
-        SelfRot();
-    }
-
-    private void SelfRot() 
+    private void SelfRotMenu() 
     {
         groupSphere.transform.Rotate(rotBody);
     } 
+    private IEnumerator WaitToShowTips()
+    {
+        yield return new WaitForSeconds(5);
+        ShowStudioTips();
+        StartCoroutine(WaitToShowTips());
+    }
+    private void ShowStudioTips()
+    {
+        int rand = Random.Range(0, 10);
+    }
 }
