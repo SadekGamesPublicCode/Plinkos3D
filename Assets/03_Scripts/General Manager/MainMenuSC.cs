@@ -12,7 +12,7 @@ public class MainMenuSC : MonoBehaviour
     [SerializeField] GameObject optionPnl;
     [SerializeField] GameObject groupSphere;
 
-    [SerializeField] Vector3 rotBody = new Vector3(1,0,0);
+    [SerializeField] Vector3 rotBody = new Vector3(0,0,0.25f);
 
     public bool isPanelActive;
     public void OnShowPanel(int pnlOder)
@@ -46,12 +46,11 @@ public class MainMenuSC : MonoBehaviour
     }
     private void Update()
     {
-        //SelfRot();
+        SelfRot();
     }
 
     private void SelfRot() 
     {
         groupSphere.transform.Rotate(rotBody);
-        print("in rotate");
     } 
 }

@@ -10,6 +10,9 @@ public class SunSC : MonoBehaviour
     [HideInInspector] Vector3 curPos;
     [SerializeField] List<GameObject> planetList = new List<GameObject>();
 
+    private float moveSpeedApply;
+    private float baseMoveSpeed = 0.01f;
+
     int moveDir = 0;
     void Start()
     {
@@ -27,8 +30,18 @@ public class SunSC : MonoBehaviour
         SelfRotate();
         VerticalMove();
     }
-
-    private void SelfRotate() => rb.transform.Rotate(bodyRot);
+    public void CaculatingMoveSpeed(int curLvl) 
+    {
+        if(curLvl != 1)
+        {
+            moveSpeedApply = baseMoveSpeed  * curLvl;
+        }
+        else
+        {
+            moveSpeedApply = baseMoveSpeed;
+        }
+    }
+    private void SelfRotate() {rb.transform.Rotate(bodyRot);}
     private void VerticalMove()
     {
         if (moveDir == 0) { moveDir = -1; } //if center, move to left
@@ -36,12 +49,12 @@ public class SunSC : MonoBehaviour
         {
             if (moveDir == -1)
             {
-                transform.position -= new Vector3(0.01f, 0, 0);
+                transform.position -= new Vector3(moveSpeedApply, 0, 0);
                 curPos = transform.position;
             }
             else if (moveDir == 1)
             {
-                transform.position += new Vector3(0.01f, 0, 0);
+                transform.position += new Vector3(moveSpeedApply, 0, 0);
                 curPos = transform.position;
             }
         }
@@ -50,7 +63,7 @@ public class SunSC : MonoBehaviour
     {
         int randPla = 0;
         randPla = Random.Range(1, 12);
-        Instantiate(planetList[randPla], curPos, Quaternion.identity);
+        Instantiate(planetList[randPla], new Vector3(curPos.x, curPos.y -1, curPos.z), Quaternion.identity);
     }
     private void ChangeDir(int dir)
     {

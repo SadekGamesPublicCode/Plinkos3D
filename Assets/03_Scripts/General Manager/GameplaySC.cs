@@ -49,10 +49,9 @@ public class GameplaySC : MonoBehaviour
         //Expect: Refresh next level
         //Handle all change of gameplay by each level
         CaculatingTargetScore(curLvl);
-        SettingStakeMap(curLvl);
+        Decidegameplay(curLvl);
     }
     #endregion
-
 
     #region Handle Gameplay
     private void CaculatingTargetScore(int curLvl)
@@ -68,6 +67,30 @@ public class GameplaySC : MonoBehaviour
         {
             Instantiate(stakes, new Vector3(Random.Range(-2.75f, 2.75f), Random.Range(-3, 3), 0), Quaternion.identity, parent.transform);
         }
+    }
+    private void Decidegameplay(int lvl)
+    {
+        if (lvl == baseLvl) 
+        {
+            sun.CaculatingMoveSpeed(lvl);
+            SettingStakeMap(lvl);
+        } 
+        else 
+        {
+            int randGameplay = Random.Range(0, 2);
+            switch (randGameplay)
+            {
+                case 0: //Increase Sun speed
+                    sun.CaculatingMoveSpeed(lvl);
+                    break;
+                case 1: //Add stakes
+                    SettingStakeMap(lvl);
+                    break;
+                case 2: //Increase baseket speed
+                    print("increase basket speed");
+                    break;
+            }
+        }  
     }
     #endregion
 
