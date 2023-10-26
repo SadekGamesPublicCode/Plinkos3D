@@ -15,18 +15,17 @@ public class MainMenuSC : MonoBehaviour
     [SerializeField] StudioTipsSC stutips;
 
     [SerializeField] Text tipsText;
+    [SerializeField] Text nameText;
 
-    [SerializeField] Vector3 rotBody = new Vector3(0,0,0.25f);
+    [SerializeField] Vector3 rotBody = new Vector3(0,0,0.1f);
 
     public bool isPanelActive;
     private void Start()
     {
         StartCoroutine(WaitToShowTips());
+        SetPlayerName();
     }
-    private void Update()
-    {
-        SelfRotMenu();
-    }
+    private void Update() => SelfRotMenu();
 
     public void OnShowPanel(int pnlOder)
     {
@@ -70,5 +69,10 @@ public class MainMenuSC : MonoBehaviour
     private void ShowStudioTips()
     {
         int rand = Random.Range(0, 10);
+        //Call print tips
+    }
+    private void SetPlayerName()
+    {
+        nameText.text = "Player" + SystemInfo.deviceName.ToString();
     }
 }
