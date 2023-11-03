@@ -9,11 +9,14 @@ public class MenuSphereSC : MonoBehaviour
     [HideInInspector] string sphereName;
 
     [SerializeField] GameObject spherePrefab;
-    [SerializeField] Vector3 planetRot = new Vector3(0, 0, 1);
+    [SerializeField] Vector3 planetRot = new Vector3(0, 0.15f, 0);
 
+    private void Update()
+    {
+        SelfRot();
+    }
     private void OnMouseDown()
     {
-        print("in mouse down");
         if (mm.isPanelActive == false)
         {
             GetSphereOder();
