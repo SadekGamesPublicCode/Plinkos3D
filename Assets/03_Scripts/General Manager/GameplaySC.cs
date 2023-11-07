@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -11,6 +13,9 @@ public class GameplaySC : MonoBehaviour
     [SerializeField] SunSC sun;
     [SerializeField] Transform parent;
     [SerializeField] GameObject stakes;
+    [SerializeField] BasketSC basket;
+    [SerializeField] PlayerSettingSC soundHandler;
+    [SerializeField] GameObject loosePanel;
 
     [Header("UIs")]
     [SerializeField] Text curLvlTxt;
@@ -25,13 +30,22 @@ public class GameplaySC : MonoBehaviour
     private int targetScore;
     private int stakeCount;
 
+    private int comboCount;
+    public int missCount;
+
     #region Managing Section
     void Start() => SettingStart();
-    public void OnSpawnBall() => sun.SpawnPlanet();
+    public void OnSpawnBall() 
+    {
+        sun.SpawnPlanet();
+        soundHandler.PlayDropSound();
+    }
     private void SettingStart()
     {
+        comboCount = 0; //Reset every reach 5
         curScore = 0; //Reset every start of game or level increase
         curLvl = baseLvl; //Change this after setting PlayerPrefs
+        soundHandler = GameObject.Find("PlayerSetting").GetComponent<PlayerSettingSC>();
 
         GenerateLevel();
         ResetUIs();
@@ -43,6 +57,7 @@ public class GameplaySC : MonoBehaviour
         UpdateLvlText(curLvl);
         UpdateCurrentScoreText(curScore);
         UpdateTargetScoreText(targetScore);
+        ShowLoosePanel(false);
     }
     void GenerateLevel()
     {
@@ -87,14 +102,36 @@ public class GameplaySC : MonoBehaviour
                     SettingStakeMap(lvl);
                     break;
                 case 2: //Increase baseket speed
-                    print("increase basket speed");
+                    if(curLvl < 3)
+                    {
+                        basket.CaculatingMoveSpeed(0);
+                    }
+                    else
+                    {
+                        basket.CaculatingMoveSpeed(curLvl);
+                    }
                     break;
             }
         }  
     }
+    public void CaculatingMissDrop()
+    {
+        missCount++;
+        if(missCount >= 10)
+        {
+            ShowLoosePanel(true);
+            IEnumerator BackMenu()
+            {
+                yield return new WaitForSeconds(3);
+                SceneManager.LoadScene("MenuScene");
+                StartCoroutine(BackMenu());
+            }
+        }
+    }
     #endregion
 
     #region Handel UIs
+    private void ShowLoosePanel(bool show) => loosePanel.gameObject.SetActive(show);
     private void UpdateLvlText(int lvl) => curLvlTxt.text = lvl.ToString(); //Update level text
     private void UpdateCurrentScoreText(int currentScore) => curScoreTxt.text = currentScore.ToString(); //Update current score text
     private void UpdateTargetScoreText(int target) => targetScoreTxt.text = target.ToString(); //Update target score text

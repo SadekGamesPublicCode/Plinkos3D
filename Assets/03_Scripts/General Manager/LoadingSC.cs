@@ -23,12 +23,10 @@ public class LoadingSC : MonoBehaviour
         curCountLoad++;
         if (curCountLoad == targetCountLoad) 
         {
-            print("in load menu");
             SceneManager.LoadScene("MenuScene");
         }
         else 
         {
-            print(curCountLoad);
             StartCoroutine(LoadingBar());
         }
     }
