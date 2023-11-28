@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.SadekGamesStudio.PlanetaryPlinko
-    Standalone: com.SadekGamesStudio.Plinkoss
+    Standalone: com.SadekGamesStudio.PlanetaryPlinko
   buildNumber:
     Standalone: 0
     VisionOS: 0
